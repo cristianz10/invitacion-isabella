@@ -400,8 +400,8 @@
         <label class="block font-elegant text-rose-300 text-sm mb-2 tracking-wide">Acompañantes <span class="text-rose-500/60 text-xs">(opcional)</span></label>
         <div class="grid grid-cols-3 gap-2">
          <label class="cursor-pointer">
-          <input type="radio" name="acompanantes" value="Solo yo" class="sr-only peer">
-          <div class="py-3 rounded-xl border-2 border-rose-700/30 bg-rose-900/20 peer-checked:border-rose-500 peer-checked:bg-rose-800/40 transition-all duration-300 text-center font-elegant text-rose-200 text-xs">Solo yo</div>
+          <input type="radio" name="acompanantes" value="Yo solo" class="sr-only peer">
+          <div class="py-3 rounded-xl border-2 border-rose-700/30 bg-rose-900/20 peer-checked:border-rose-500 peer-checked:bg-rose-800/40 transition-all duration-300 text-center font-elegant text-rose-200 text-xs">Yo solo</div>
          </label>
          <label class="cursor-pointer">
           <input type="radio" name="acompanantes" value="+1" class="sr-only peer">
@@ -597,7 +597,7 @@
       // CORRECCIÓN: calcular total numérico de personas
       let totalPersonas = 0;
       if (asistenciaVal === 'Si') {
-        if (acompVal === 'Solo yo') {
+        if (acompVal === 'Yo solo') {
           totalPersonas = 1;
         } else {
           totalPersonas = 1 + parseInt(acompVal.replace('+', ''), 10);
