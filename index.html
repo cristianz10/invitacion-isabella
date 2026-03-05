@@ -609,36 +609,20 @@
       document.getElementById('btn-rsvp-loading').classList.remove('hidden');
       document.getElementById('btn-rsvp').disabled = true;
 
-      // Crear un formulario oculto real y enviarlo al iframe
-      const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeG0IeQR4JpNIM8qpzhUq-dIlgFc4ButAktVLzkK77NzzKvmA/formResponse';
+      // Enviar con fetch no-cors (método correcto para Google Forms cross-origin)
+const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeG0IeQR4JpNIM8qpzhUq-dIlgFc4ButAktVLzkK77NzzKvmA/formResponse';
 
-      const hiddenForm = document.createElement('form');
-      hiddenForm.method = 'POST';
-      hiddenForm.action = FORM_URL;
-      hiddenForm.target = 'hidden-gform';
-      hiddenForm.style.display = 'none';
+        const formData = new FormData();
+        formData.append('entry.1075135171', nombre);
+        formData.append('entry.1331914687', asistenciaVal);
+        formData.append('entry.927343248', acompVal);
+        formData.append('entry.2088091130', mensaje);
 
-      const campos = [
-        { name: 'entry.1075135171', value: nombre },
-        { name: 'entry.1331914687', value: asistenciaVal },
-        { name: 'entry.927343248',  value: acompVal },
-        { name: 'entry.2088091130', value: mensaje },
-        { name: 'fvv',              value: '1' },
-        { name: 'fbzx',             value: '-261716362737710382' }
-      ];
-
-      campos.forEach(function(c) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = c.name;
-        input.value = c.value;
-        hiddenForm.appendChild(input);
-      });
-
-      document.body.appendChild(hiddenForm);
-      hiddenForm.submit();
-      document.body.removeChild(hiddenForm);
-
+        fetch(FORM_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: formData
+        });
       // Mostrar éxito después de un momento
       setTimeout(function() {
         document.getElementById('rsvp-form-wrap').classList.add('hidden');
