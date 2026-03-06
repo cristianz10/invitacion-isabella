@@ -147,6 +147,12 @@
   <style>body { box-sizing: border-box; }</style>
  </head>
  <body class="h-full overflow-auto">
+    <!-- Audio de fondo -->
+  <audio id="bg-audio" loop>
+    <source src="BLACKPINK - Tally (Official Audio).mp3" type="audio/mpeg">
+  </audio>
+  <!-- Botón de audio flotante -->
+  <button id="audio-btn" onclick="toggleAudio()" style="position:fixed;bottom:20px;right:20px;z-index:9999;background:linear-gradient(135deg,#722F37,#8B4559);color:white;border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;box-shadow:0 4px 15px rgba(139,69,89,0.5);transition:all 0.3s ease;" title="Reproducir/Pausar música">🔇</button>
   <div id="app-wrapper" class="min-h-full w-full" style="background:linear-gradient(135deg,#1a0a0d 0%,#2D1B1E 25%,#3D252A 50%,#2D1B1E 75%,#1a0a0d 100%);">
    <div id="particles-container" class="fixed inset-0 pointer-events-none overflow-hidden z-50"></div>
 
@@ -442,6 +448,26 @@
         <p class="font-elegant text-red-300 text-sm">⚠️ Por favor completá los campos obligatorios.</p>
        </div>
 
+            <!-- Mercado Pago -->
+            <div class="mt-6 p-5 bg-gradient-to-br from-rose-900/40 to-rose-950/60 rounded-2xl border border-rose-400/30 backdrop-blur-sm">
+              <p class="font-script text-rose-200 text-2xl mb-1">💙 ¿Querés enviar un regalo?</p>
+              <p class="font-elegant text-rose-300/80 text-sm mb-4">podés transferirme por Mercado Pago</p>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-2">
+                  <span class="font-elegant text-rose-400 text-sm">alias</span>
+                  <span class="font-display text-rose-100 text-sm tracking-wide">isa.slzarr</span>
+                </div>
+                <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-2">
+                  <span class="font-elegant text-rose-400 text-sm">cvu</span>
+                  <span class="font-display text-rose-100 text-xs tracking-wide">0000003100026744750085</span>
+                </div>
+                <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-2">
+                  <span class="font-elegant text-rose-400 text-sm">nombre</span>
+                  <span class="font-display text-rose-100 text-sm">isabella a. medina salazar</span>
+                </div>
+              </div>
+            </div>
+
        <!-- Botón enviar -->
        <button id="btn-rsvp" onclick="enviarRSVP()"
         class="btn-elegant w-full bg-gradient-to-r from-rose-700 via-rose-600 to-rose-700 hover:from-rose-600 hover:via-rose-500 hover:to-rose-600 text-white font-display text-lg tracking-wider py-4 rounded-xl transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]">
@@ -488,39 +514,6 @@
       <span class="text-sm sparkle" style="animation-delay:0.6s;">✨</span>
      </div>
     
-      <!-- mercado pago -->
-      <div class="mt-8 mx-4">
-        <div class="bg-rose-900/30 border border-rose-700/30 rounded-2xl p-6">
-          <div class="text-center mb-4">
-            <span class="text-3xl">💙</span>
-            <h4 class="font-display text-lg text-rose-200 mt-2">¿querés enviar un regalo?</h4>
-            <p class="font-elegant text-rose-300/70 text-sm mt-1">podés transferirme por mercado pago</p>
-          </div>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-3">
-              <span class="font-elegant text-rose-400 text-sm">alias</span>
-              <span class="font-display text-rose-100 text-sm tracking-wider select-all">isa.slzarr</span>
-            </div>
-            <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-3">
-              <span class="font-elegant text-rose-400 text-sm">cvu</span>
-              <span class="font-display text-rose-100 text-xs tracking-wider select-all">0000003100026744750085</span>
-            </div>
-            <div class="flex items-center justify-between bg-rose-950/50 rounded-xl px-4 py-3">
-              <span class="font-elegant text-rose-400 text-sm">nombre</span>
-              <span class="font-display text-rose-100 text-sm select-all">isabella a. medina salazar</span>
-            </div>
-          </div>
-        </div>
-      </div>
-              <!-- Mercado Pago -->
-        <div class="mt-6 mx-4 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-rose-200/30">
-          <p class="font-elegant text-rose-300 text-lg mb-3">💙 Datos para Mercado Pago</p>
-          <div class="space-y-2 text-left">
-            <p class="font-display text-rose-100 text-sm"><span class="text-rose-300 font-semibold">Alias:</span> isa.slzarr</p>
-            <p class="font-display text-rose-100 text-sm"><span class="text-rose-300 font-semibold">CVU:</span> 0000003100026744750085</p>
-            <p class="font-display text-rose-100 text-sm"><span class="text-rose-300 font-semibold">Nombre:</span> Isabella Agustina Medina Salazar</p>
-          </div>
-        </div>
     </footer>
 
    </div>
@@ -663,6 +656,19 @@ const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeG0IeQR4JpNIM8qpzhUq
         document.getElementById('rsvp-success').classList.remove('hidden');
       }, 1500);
     }
+
+  // Controlar audio de fondo
+  function toggleAudio() {
+    const audio = document.getElementById('bg-audio');
+    const btn = document.getElementById('audio-btn');
+    if (audio.paused) {
+      audio.play();
+      btn.textContent = '🔊';
+    } else {
+      audio.pause();
+      btn.textContent = '🔇';
+    }
+  }
   </script>
  </body>
 </html>
